@@ -77,6 +77,8 @@
 	if (![foundPeripherals containsObject:peripheral]) {
 		[foundPeripherals addObject:peripheral];
 		[discoveryDelegate discoveryDidRefresh];
+        NSString *string = [NSString stringWithFormat:@"Found periph: %@",peripheral.name];
+        NSLog(string);
 	}
 }
 

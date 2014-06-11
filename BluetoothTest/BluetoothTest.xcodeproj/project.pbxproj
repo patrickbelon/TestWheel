@@ -22,6 +22,9 @@
 		1ED815B21942C7B4009FF65B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED815911942C7B4009FF65B /* UIKit.framework */; };
 		1ED815BA1942C7B4009FF65B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1ED815B81942C7B4009FF65B /* InfoPlist.strings */; };
 		1ED815BC1942C7B4009FF65B /* BluetoothTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED815BB1942C7B4009FF65B /* BluetoothTestTests.m */; };
+		1ED815CE1942DDFC009FF65B /* beBatteryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED815CD1942DDFC009FF65B /* beBatteryService.m */; };
+		1ED815D01942DE0C009FF65B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED815CF1942DE0C009FF65B /* CoreBluetooth.framework */; };
+		1ED815D31942EBA8009FF65B /* beDiscover.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED815D21942EBA8009FF65B /* beDiscover.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,11 @@
 		1ED815B71942C7B4009FF65B /* BluetoothTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BluetoothTestTests-Info.plist"; sourceTree = "<group>"; };
 		1ED815B91942C7B4009FF65B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1ED815BB1942C7B4009FF65B /* BluetoothTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothTestTests.m; sourceTree = "<group>"; };
+		1ED815CC1942DDFC009FF65B /* beBatteryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beBatteryService.h; sourceTree = "<group>"; };
+		1ED815CD1942DDFC009FF65B /* beBatteryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beBatteryService.m; sourceTree = "<group>"; };
+		1ED815CF1942DE0C009FF65B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		1ED815D11942EBA8009FF65B /* beDiscover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beDiscover.h; sourceTree = "<group>"; };
+		1ED815D21942EBA8009FF65B /* beDiscover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beDiscover.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED815D01942DE0C009FF65B /* CoreBluetooth.framework in Frameworks */,
 				1ED815901942C7B4009FF65B /* CoreGraphics.framework in Frameworks */,
 				1ED815921942C7B4009FF65B /* UIKit.framework in Frameworks */,
 				1ED8158E1942C7B4009FF65B /* Foundation.framework in Frameworks */,
@@ -104,6 +113,7 @@
 		1ED8158C1942C7B4009FF65B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1ED815CF1942DE0C009FF65B /* CoreBluetooth.framework */,
 				1ED8158D1942C7B4009FF65B /* Foundation.framework */,
 				1ED8158F1942C7B4009FF65B /* CoreGraphics.framework */,
 				1ED815911942C7B4009FF65B /* UIKit.framework */,
@@ -115,6 +125,7 @@
 		1ED815931942C7B4009FF65B /* BluetoothTest */ = {
 			isa = PBXGroup;
 			children = (
+				1ED815C51942C83A009FF65B /* Bluetooth Driver */,
 				1ED8159C1942C7B4009FF65B /* beAppDelegate.h */,
 				1ED8159D1942C7B4009FF65B /* beAppDelegate.m */,
 				1ED8159F1942C7B4009FF65B /* Main.storyboard */,
@@ -155,6 +166,17 @@
 				1ED815B81942C7B4009FF65B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1ED815C51942C83A009FF65B /* Bluetooth Driver */ = {
+			isa = PBXGroup;
+			children = (
+				1ED815CC1942DDFC009FF65B /* beBatteryService.h */,
+				1ED815CD1942DDFC009FF65B /* beBatteryService.m */,
+				1ED815D11942EBA8009FF65B /* beDiscover.h */,
+				1ED815D21942EBA8009FF65B /* beDiscover.m */,
+			);
+			name = "Bluetooth Driver";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +279,10 @@
 			files = (
 				1ED8159A1942C7B4009FF65B /* main.m in Sources */,
 				1ED815A71942C7B4009FF65B /* beSecondViewController.m in Sources */,
+				1ED815CE1942DDFC009FF65B /* beBatteryService.m in Sources */,
 				1ED8159E1942C7B4009FF65B /* beAppDelegate.m in Sources */,
 				1ED815A41942C7B4009FF65B /* beFirstViewController.m in Sources */,
+				1ED815D31942EBA8009FF65B /* beDiscover.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

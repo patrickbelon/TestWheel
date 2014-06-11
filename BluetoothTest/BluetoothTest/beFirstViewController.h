@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface beFirstViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIButton *connectButton;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
+- (IBAction)buttonClicked:(id)sender;
 
 @end
