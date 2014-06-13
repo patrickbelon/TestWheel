@@ -32,6 +32,8 @@
 
 - (IBAction)buttonClicked:(id)sender {
         [[beDiscover sharedInstance]startScanningForUUIDString:beBatteryServiceUUIDString];
+        _textView.text = [_textView.text stringByAppendingString:@"\n"];
+        _textView.text = [_textView.text stringByAppendingString:@"Searching"];
 }
 
 #pragma mark -
@@ -52,7 +54,11 @@
 
 -(void) batteryServiceDidChangeStatus:(beBatteryService *)service
 {
-    
+ if([service.peripheral state] == CBPeripheralStateConnected)
+ {
+     _textView.text = [_textView.text stringByAppendingString:@"\n"];
+     _textView.text = [_textView.text stringByAppendingString:@"Connected battery peripheral"];
+ }
 }
 
 -(void)batteryServiceDidReset{

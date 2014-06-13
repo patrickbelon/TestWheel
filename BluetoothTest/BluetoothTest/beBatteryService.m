@@ -9,7 +9,7 @@
 #import "beBatteryService.h"
 
 NSString *beBatteryServiceUUIDString = @"180f";
-NSString *beCurrentBatteryLevelCharacteristicUUIDString = @"21a9";
+NSString *beCurrentBatteryLevelCharacteristicUUIDString = @"2a19";
 
 NSString *beBatteryServiceEnteredBackgroundNotification =
 @"beBatteryServiceEnteredBackgroundNotification";
@@ -34,6 +34,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 @implementation beBatteryService
 
 @synthesize peripheral = servicePeripheral; //Why does this happen?
+@synthesize batteryPercentage;
 
 
 #pragma mark - 
@@ -78,7 +79,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 - (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
 	NSArray		*services	= nil;
-	NSArray		*uuids	= [NSArray arrayWithObjects:beCurrentBatteryLevelCharacteristicUUIDString, // Current Temp
+	NSArray		*uuids	= [NSArray arrayWithObjects:currentBatteryLevelUUID,
                            nil];
     
 	if (peripheral != servicePeripheral) {
@@ -99,7 +100,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 	batteryService = nil;
     
 	for (CBService *service in services) {
-		if ([[service UUID] isEqual:[CBUUID UUIDWithString:beCurrentBatteryLevelCharacteristicUUIDString]]) {
+		if ([[service UUID] isEqual:[CBUUID UUIDWithString:beBatteryServiceUUIDString]]) {
 			batteryService = service;
 			break;
 		}
@@ -134,12 +135,26 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 	for (characteristic in characteristics) {
         NSLog(@"discovered characteristic %@", [characteristic UUID]);
         
-		if ([[characteristic UUID] isEqual:batteryLevelUUID]) { // Min Temperature.
-            NSLog(@"Discovered Minimum Alarm Characteristic");
+		if ([[characteristic UUID] isEqual:currentBatteryLevelUUID]) { // Min Temperature.
+            NSLog(@"Discovered battery level Characteristic");
 			batteryCharacteristic = characteristic;
 			[peripheral readValueForCharacteristic:characteristic];
 		}
     }
+}
+
+-(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    NSLog(@"Updated value");
+    [peripheralDelegate batteryServiceDidChangeBatteryLevel:self];
+}
+
+-(void)enteredBackground{
+    
+}
+
+-(void)enteredForeground    {
+    
 }
 
 

@@ -79,6 +79,7 @@
 		[discoveryDelegate discoveryDidRefresh];
         NSString *string = [NSString stringWithFormat:@"Found periph: %@",peripheral.name];
         NSLog(string);
+        [self connectPeripheral:peripheral];
 	}
 }
 
@@ -89,7 +90,7 @@
 /****************************************************************************/
 - (void) connectPeripheral:(CBPeripheral*)peripheral
 {
-	if (peripheral.state == CBPeripheralStateConnected) {
+	if (peripheral.state == CBPeripheralStateDisconnected) {
 		[centralManager connectPeripheral:peripheral options:nil];
 	}
 }
