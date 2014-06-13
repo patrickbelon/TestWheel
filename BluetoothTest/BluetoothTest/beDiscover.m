@@ -20,6 +20,7 @@
 @synthesize connectedServices;
 @synthesize discoveryDelegate;
 @synthesize peripheralDelegate;
+@synthesize connectedWheel;
 
 #pragma mark -
 #pragma mark Init
@@ -96,15 +97,18 @@
 }
 
 
-- (void) disconnectPeripheral:(CBPeripheral*)peripheral
+- (void) disconnectPeripheral
 {
-	[centralManager cancelPeripheralConnection:peripheral];
+	[centralManager cancelPeripheralConnection:connectedWheel];
+    connectedWheel = nil;
+    [discoveryDelegate peripheralChangedState:CBPeripheralStateDisconnected];
 }
 
 
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
 	beBatteryService	*service	= nil;
+    connectedWheel = peripheral;
 	
 	/* Create a service instance. */
 	service = [[beBatteryService alloc] initWithPeripheral:peripheral controller:peripheralDelegate];
@@ -118,6 +122,7 @@
     
     [peripheralDelegate batteryServiceDidChangeStatus:service];
 	[discoveryDelegate discoveryDidRefresh];
+    [discoveryDelegate peripheralChangedState:[peripheral state]];
 }
 
 

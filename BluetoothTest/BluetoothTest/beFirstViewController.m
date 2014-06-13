@@ -3,14 +3,14 @@
 //  BluetoothTest
 //
 //  Created by Patrick Belon on 6/6/14.
-//  Copyright (c) 2014 BioCom. All rights reserved.
+//  Copyright (c) 2014 Belon Engineering. All rights reserved.
 //
 
 #import "beFirstViewController.h"
 #import "beBatteryService.h"
 #import "beDiscover.h"
 
-@interface beFirstViewController () <beBatteryServiceProtocol,beDiscoverDelegate >
+@interface beFirstViewController () <beBatteryServiceProtocol>
 @property(strong,nonatomic) beBatteryService *batteryService;
 @end
 
@@ -20,7 +20,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[[beDiscover sharedInstance]setDiscoveryDelegate:self];
     [[beDiscover sharedInstance]setPeripheralDelegate:self];
 }
 

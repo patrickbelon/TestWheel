@@ -17,6 +17,7 @@
 @protocol beDiscoverDelegate <NSObject>
 - (void) discoveryDidRefresh;
 - (void) discoveryStatePoweredOff;
+- (void) peripheralChangedState:(CBPeripheralState) state; 
 @end
 
 /****************************************************************************/
@@ -38,12 +39,13 @@
 - (void) stopScanning;
 
 - (void) connectPeripheral:(CBPeripheral*)peripheral;
-- (void) disconnectPeripheral:(CBPeripheral*)peripheral;
+- (void) disconnectPeripheral;
 
 /****************************************************************************/
 /*							Access to the devices							*/
 /****************************************************************************/
 @property (retain, nonatomic) NSMutableArray    *foundPeripherals;
 @property (retain, nonatomic) NSMutableArray	*connectedServices;	// Array of batteryService
+@property (strong, nonatomic) CBPeripheral      *connectedWheel;
 @end
 

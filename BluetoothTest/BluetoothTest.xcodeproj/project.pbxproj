@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EC8F28F194B755A00027DFB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC8F28E194B755A00027DFB /* MapKit.framework */; };
 		1ED8158E1942C7B4009FF65B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED8158D1942C7B4009FF65B /* Foundation.framework */; };
 		1ED815901942C7B4009FF65B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED8158F1942C7B4009FF65B /* CoreGraphics.framework */; };
 		1ED815921942C7B4009FF65B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED815911942C7B4009FF65B /* UIKit.framework */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1EC8F28E194B755A00027DFB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1ED8158A1942C7B4009FF65B /* BluetoothTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED8158D1942C7B4009FF65B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1ED8158F1942C7B4009FF65B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC8F28F194B755A00027DFB /* MapKit.framework in Frameworks */,
 				1ED815D01942DE0C009FF65B /* CoreBluetooth.framework in Frameworks */,
 				1ED815901942C7B4009FF65B /* CoreGraphics.framework in Frameworks */,
 				1ED815921942C7B4009FF65B /* UIKit.framework in Frameworks */,
@@ -113,6 +116,7 @@
 		1ED8158C1942C7B4009FF65B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EC8F28E194B755A00027DFB /* MapKit.framework */,
 				1ED815CF1942DE0C009FF65B /* CoreBluetooth.framework */,
 				1ED8158D1942C7B4009FF65B /* Foundation.framework */,
 				1ED8158F1942C7B4009FF65B /* CoreGraphics.framework */,
@@ -487,6 +491,7 @@
 				1ED815C11942C7B4009FF65B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1ED815C21942C7B4009FF65B /* Build configuration list for PBXNativeTarget "BluetoothTestTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +500,7 @@
 				1ED815C41942C7B4009FF65B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
