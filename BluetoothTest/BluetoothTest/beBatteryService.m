@@ -138,7 +138,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 		if ([[characteristic UUID] isEqual:currentBatteryLevelUUID]) { // Min Temperature.
             NSLog(@"Discovered battery level Characteristic");
 			batteryCharacteristic = characteristic;
-			[peripheral readValueForCharacteristic:characteristic];
+            [peripheral setNotifyValue:YES forCharacteristic:batteryCharacteristic];
 		}
     }
 }
