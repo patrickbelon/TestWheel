@@ -48,15 +48,44 @@
 {
     if(state == CBPeripheralStateConnected)
     {
-        [connectButton setTitle:@"Disconnectet" forState:UIControlStateNormal];
-        isWheelConnected = true;
-        NSLog(@"Connected");
+
     }
     else if(state == CBPeripheralStateDisconnected)
     {
-        isWheelConnected = false;
-        [connectButton setTitle:@"Connect" forState:UIControlStateNormal];
-        NSLog(@"Disconnected");
+
+    }
+}
+
+-(void)discoveryDidUpdateState:(beDiscoveryState)state
+{
+    
+    switch (state) {
+        case beDiscoveryStateDisconnected:
+            NSLog(@"discoveryUpdatedState: Disconnected");
+            isWheelConnected = false;
+            [connectButton setTitle:@"Connect" forState:UIControlStateNormal];
+            break;
+            
+        case beDiscoveryStateSearching:
+            NSLog(@"discoveryUpdatedState: Searching");
+            connectButton.enabled=NO;
+            [connectButton setTitle:@"Connecting..." forState:UIControlStateNormal];
+            break;
+            
+        case beDiscoveryStateConnecting:
+            NSLog(@"discoveryUpdatedState: Connecting");
+            break;
+        
+        case beDiscoveryStateConnected:
+            [connectButton setTitle:@"Disconnect" forState:UIControlStateNormal];
+            connectButton.enabled = YES;
+            NSLog(@"discoveryUpdatedState: Connected");
+            isWheelConnected = true;
+            break;
+            
+        default:
+            NSLog(@"wrong state");
+            break;
     }
 }
 

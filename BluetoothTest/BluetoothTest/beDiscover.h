@@ -8,8 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-
 #import "beBatteryService.h"
+
+/****************************************************************************/
+/*                             State                                        */
+/***************************************************************************/
+typedef enum
+{
+    beDiscoveryStateDisconnected,
+    beDiscoveryStateSearching,
+    beDiscoveryStateConnecting,
+    beDiscoveryStateConnected
+}beDiscoveryState;
 
 /****************************************************************************/
 /*							UI protocols									*/
@@ -17,13 +27,16 @@
 @protocol beDiscoverDelegate <NSObject>
 - (void) discoveryDidRefresh;
 - (void) discoveryStatePoweredOff;
-- (void) peripheralChangedState:(CBPeripheralState) state; 
+- (void) peripheralChangedState:(CBPeripheralState) state;
+- (void) discoveryDidUpdateState: (beDiscoveryState)state; 
 @end
 
 /****************************************************************************/
 /*							Discovery class									*/
 /****************************************************************************/
-@interface beDiscover : NSObject
+@interface beDiscover : NSObject{
+    
+}
 +(id) sharedInstance;
 
 /****************************************************************************/
@@ -37,7 +50,6 @@
 /****************************************************************************/
 - (void) startScanningForUUIDString:(NSString *)uuidString;
 - (void) stopScanning;
-
 - (void) connectPeripheral:(CBPeripheral*)peripheral;
 - (void) disconnectPeripheral;
 
@@ -47,5 +59,11 @@
 @property (retain, nonatomic) NSMutableArray    *foundPeripherals;
 @property (retain, nonatomic) NSMutableArray	*connectedServices;	// Array of batteryService
 @property (strong, nonatomic) CBPeripheral      *connectedWheel;
+
+/****************************************************************************/
+/*                              Access to state                             */
+/****************************************************************************/
+@property (readonly) beDiscoveryState state;
+
 @end
 

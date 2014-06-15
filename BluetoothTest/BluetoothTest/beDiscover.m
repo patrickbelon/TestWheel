@@ -3,7 +3,7 @@
 //  BluetoothTest
 //
 //  Created by Patrick Belon on 6/6/14.
-//  Copyright (c) 2014 BioCom. All rights reserved.
+//  Copyright (c) 2014 Belon Engineering. All rights reserved.
 //
 
 #import "beDiscover.h"
@@ -12,6 +12,7 @@
 	CBCentralManager    *centralManager;
 	BOOL				pendingInit;
 }
+    @property beDiscoveryState state;
 @end
 
 @implementation beDiscover
@@ -21,6 +22,7 @@
 @synthesize discoveryDelegate;
 @synthesize peripheralDelegate;
 @synthesize connectedWheel;
+@synthesize state;
 
 #pragma mark -
 #pragma mark Init
@@ -62,7 +64,7 @@
 {
 	NSArray			*uuidArray	= [NSArray arrayWithObjects:[CBUUID UUIDWithString:uuidString], nil];
 	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
-    
+    [self updateState:beDiscoveryStateSearching];
 	[centralManager scanForPeripheralsWithServices:uuidArray options:options];
 }
 
@@ -93,6 +95,7 @@
 {
 	if (peripheral.state == CBPeripheralStateDisconnected) {
 		[centralManager connectPeripheral:peripheral options:nil];
+        [self updateState:beDiscoveryStateConnecting];
 	}
 }
 
@@ -101,7 +104,6 @@
 {
 	[centralManager cancelPeripheralConnection:connectedWheel];
     connectedWheel = nil;
-    [discoveryDelegate peripheralChangedState:CBPeripheralStateDisconnected];
 }
 
 
@@ -122,7 +124,7 @@
     
     [peripheralDelegate batteryServiceDidChangeStatus:service];
 	[discoveryDelegate discoveryDidRefresh];
-    [discoveryDelegate peripheralChangedState:[peripheral state]];
+    [self updateState:beDiscoveryStateConnected];
 }
 
 
@@ -136,6 +138,8 @@
 {
 	beBatteryService	*service	= nil;
     
+    [self updateState:beDiscoveryStateDisconnected];
+    
 	for (service in connectedServices) {
 		if ([service peripheral] == peripheral) {
 			[connectedServices removeObject:service];
@@ -147,6 +151,11 @@
 	[discoveryDelegate discoveryDidRefresh];
 }
 
+-(void) updateState: (beDiscoveryState) newState
+{
+    self.state = newState;
+    [discoveryDelegate discoveryDidUpdateState:newState];
+}
 
 - (void) clearDevices
 {
