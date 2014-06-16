@@ -9,7 +9,11 @@
 #import "beBatteryService.h"
 
 NSString *beBatteryServiceUUIDString = @"180f";
+NSString *beSystemControlServiceUUIDString = @"22cd3f90-f271-4888-83af-ba344c66e124";
+
 NSString *beCurrentBatteryLevelCharacteristicUUIDString = @"2a19";
+NSString *beUserCompensationCharacteristicUUIDString = @"e3dcec81-af24-4961-9f94-b865702dfbae";
+NSString *beBikeEnableCharacteristicUUIDString = @"fb54f9c3-0d8a-43df-8bca-7170c1753dad";
 
 NSString *beBatteryServiceEnteredBackgroundNotification =
 @"beBatteryServiceEnteredBackgroundNotification";
@@ -21,11 +25,17 @@ NSString *beBatteryServiceEnteredForegroundNotification =
     CBPeripheral        *servicePeripheral;
     
     CBService           *batteryService;
+    CBService           *systemControlService;              //May not need
     
     CBCharacteristic    *batteryCharacteristic;
+    CBCharacteristic    *userCompensationCharacteristic;    //May not need
+    CBCharacteristic    *bikeEnableCharacteristic;          //May not need
     
+    //What is the retain on these?
     CBUUID              *currentBatteryLevelUUID;
     CBUUID              *batteryLevelUUID;
+    CBUUID              *userCompensationUUID;
+    CBUUID              *bikeEnableUUID;
     
     id<beBatteryServiceProtocol> peripheralDelegate;
 }
@@ -35,6 +45,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 
 @synthesize peripheral = servicePeripheral; //Why does this happen?
 @synthesize batteryPercentage;
+@synthesize systemControlDelegate;
 
 
 #pragma mark - 
@@ -52,6 +63,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
         
         currentBatteryLevelUUID	= [CBUUID UUIDWithString:beCurrentBatteryLevelCharacteristicUUIDString];
         batteryLevelUUID        = [CBUUID UUIDWithString:beBatteryServiceUUIDString];
+        userCompensationUUID    = [CBUUID UUIDWithString:beUserCompensationCharacteristicUUIDString];
 	}
     return self;
 }
@@ -63,6 +75,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 	}
 }
 
+
 #pragma mark -
 #pragma mark Service interaction
 /****************************************************************************/
@@ -71,9 +84,10 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 - (void) start
 {
 	CBUUID	*serviceUUID	= [CBUUID UUIDWithString:beBatteryServiceUUIDString];
+    CBUUID  *systemControlUUID   = [CBUUID UUIDWithString:beSystemControlServiceUUIDString];
 	NSArray	*serviceArray	= [NSArray arrayWithObjects:serviceUUID, nil];
     
-    [servicePeripheral discoverServices:serviceArray];
+    [servicePeripheral discoverServices:nil];
 }
 
 - (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
@@ -81,6 +95,8 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 	NSArray		*services	= nil;
 	NSArray		*uuids	= [NSArray arrayWithObjects:currentBatteryLevelUUID,
                            nil];
+    
+    
     
 	if (peripheral != servicePeripheral) {
 		NSLog(@"Wrong Peripheral.\n");
@@ -100,15 +116,22 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 	batteryService = nil;
     
 	for (CBService *service in services) {
+        NSLog(@"Discovered service: %@",service.UUID.description);
 		if ([[service UUID] isEqual:[CBUUID UUIDWithString:beBatteryServiceUUIDString]]) {
 			batteryService = service;
-			break;
 		}
+        else if([[service UUID]isEqual:[CBUUID UUIDWithString:beSystemControlServiceUUIDString]])
+        {
+            systemControlService = service;
+        }
 	}
     
 	if (batteryService) {
-		[peripheral discoverCharacteristics:uuids forService:batteryService];
+		[peripheral discoverCharacteristics:nil forService:batteryService];
 	}
+    if(systemControlService){
+        [peripheral discoverCharacteristics:nil forService:systemControlService];
+    }
 }
 
 
@@ -122,7 +145,7 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 		return ;
 	}
 	
-	if (service != batteryService) {
+	if (!(service == batteryService || service ==systemControlService)) {
 		NSLog(@"Wrong Service.\n");
 		return ;
 	}
@@ -135,25 +158,57 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 	for (characteristic in characteristics) {
         NSLog(@"discovered characteristic %@", [characteristic UUID]);
         
-		if ([[characteristic UUID] isEqual:currentBatteryLevelUUID]) { // Min Temperature.
+		if ([[characteristic UUID] isEqual:currentBatteryLevelUUID]) {
             NSLog(@"Discovered battery level Characteristic");
 			batteryCharacteristic = characteristic;
             [peripheral setNotifyValue:YES forCharacteristic:batteryCharacteristic];
+		}
+        else if ([[characteristic UUID] isEqual:userCompensationUUID]) {
+            NSLog(@"Discovered user compensation Characteristic");
+			userCompensationCharacteristic = characteristic;
+            [peripheral readValueForCharacteristic:userCompensationCharacteristic];
 		}
     }
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSLog(@"Updated value");
-    [peripheralDelegate batteryServiceDidChangeBatteryLevel:self];
+    if([characteristic.UUID isEqual:batteryLevelUUID]){
+        [peripheralDelegate batteryServiceDidChangeBatteryLevel:self];
+    }
+    else if([characteristic.UUID isEqual:userCompensationUUID])
+    {
+        [systemControlDelegate userCompensationServiceDidChangeValue:self];
+    }
+}
+
+-(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    
+    if(error != nil)
+    {
+        NSLog(@"error: %@",error.description);
+    }
+    else
+    {
+        NSLog(@"Write succeeded");
+    }
+}
+
+-(void) compensateWheel{
+    
+    NSData *data = nil;
+    uint8_t value = 0x1;
+    
+    data = [NSData dataWithBytes:&value length:sizeof(value)];
+    
+    [servicePeripheral writeValue:data forCharacteristic:userCompensationCharacteristic type:CBCharacteristicWriteWithResponse];
 }
 
 -(void)enteredBackground{
     
 }
 
--(void)enteredForeground    {
+-(void)enteredForeground{
     
 }
 

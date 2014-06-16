@@ -8,6 +8,7 @@
 
 #import "beFirstViewController.h"
 #import "beBatteryService.h"
+#import "beSystemControlService.h"
 #import "beDiscover.h"
 
 @interface beFirstViewController () <beBatteryServiceProtocol>
@@ -38,7 +39,7 @@
 #pragma mark -
 #pragma mark beBatterySErvice Delegate Methods
 /****************************************************************************/
-/*				LeTemperatureAlarmProtocol Delegate Methods					*/
+/*				beBatteryServiceProtocol Delegate Methods					*/
 /****************************************************************************/
 
 /** Max or Min change request complete */
@@ -74,5 +75,6 @@
 -(void)discoveryStatePoweredOff{
     
 }
+
 
 @end

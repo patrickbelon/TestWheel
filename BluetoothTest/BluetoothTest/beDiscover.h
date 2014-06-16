@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "beBatteryService.h"
+#import "beSystemControlService.h"
 
 /****************************************************************************/
 /*                             State                                        */
@@ -44,6 +45,7 @@ typedef enum
 /****************************************************************************/
 @property (nonatomic, assign) id<beDiscoverDelegate>           discoveryDelegate;
 @property (nonatomic, assign) id<beBatteryServiceProtocol>     peripheralDelegate;
+@property (nonatomic, assign) id<beSystemControlServiceProtocol> systemControlDelegate;
 
 /****************************************************************************/
 /*								Actions										*/
@@ -59,6 +61,7 @@ typedef enum
 @property (retain, nonatomic) NSMutableArray    *foundPeripherals;
 @property (retain, nonatomic) NSMutableArray	*connectedServices;	// Array of batteryService
 @property (strong, nonatomic) CBPeripheral      *connectedWheel;
+@property (strong, nonatomic) CBService         *systemControlService;
 
 /****************************************************************************/
 /*                              Access to state                             */

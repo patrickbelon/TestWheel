@@ -21,6 +21,7 @@
 @synthesize connectedServices;
 @synthesize discoveryDelegate;
 @synthesize peripheralDelegate;
+@synthesize systemControlDelegate;
 @synthesize connectedWheel;
 @synthesize state;
 
@@ -110,14 +111,21 @@
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
 	beBatteryService	*service	= nil;
+    beSystemControlService *controlService = nil;
     connectedWheel = peripheral;
 	
 	/* Create a service instance. */
 	service = [[beBatteryService alloc] initWithPeripheral:peripheral controller:peripheralDelegate];
-	[service start];
+    service.systemControlDelegate = systemControlDelegate;
+    //controlService = [[beSystemControlService alloc]initWithPeripheral:peripheral controller:systemControlDelegate];
+	
+    [service start];
+    //[controlService start];
     
-	if (![connectedServices containsObject:service])
+	if (![connectedServices containsObject:service]){
 		[connectedServices addObject:service];
+        //[connectedServices addObject:controlService];
+    }
     
 	if ([foundPeripherals containsObject:peripheral])
 		[foundPeripherals removeObject:peripheral];

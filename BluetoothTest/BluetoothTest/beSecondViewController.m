@@ -8,8 +8,9 @@
 
 #import "beDiscover.h"
 #import "beSecondViewController.h"
+#import "beSystemControlService.h"
 
-@interface beSecondViewController ()<beDiscoverDelegate>{
+@interface beSecondViewController ()<beDiscoverDelegate,beSystemControlServiceProtocol>{
 @private
     
     bool isWheelConnected;
@@ -24,6 +25,7 @@
 {
     [super viewDidLoad];
 	[[beDiscover sharedInstance]setDiscoveryDelegate:self];
+    [[beDiscover sharedInstance]setSystemControlDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,6 +91,17 @@
     }
 }
 
+#pragma mark -
+#pragma mark beSystemControlService Delegate Methods
+/****************************************************************************/
+/*				beSystemControlServiceProtocol Delegate Methods					*/
+/****************************************************************************/
+
+-(void)userCompensationServiceDidChangeValue:(beBatteryService *)service{
+    NSLog(@"User compensated wheel: SecondViewController");
+}
+
+
 #pragma mark --
 #pragma mark APP I/O
 
@@ -104,5 +117,9 @@
 }
 
 - (IBAction)calibrateButtonPressed:(id)sender {
+    NSMutableArray *arr = [[beDiscover sharedInstance]connectedServices];
+    beBatteryService *ser = [arr objectAtIndex:0];
+    
+    [ser compensateWheel];
 }
 @end
