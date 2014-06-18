@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface beFirstViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIButton *connectButton;
 @property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) IBOutlet CLLocationManager *locationManager;
 - (IBAction)buttonClicked:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *batteryLevelLabel;
+@property (strong, nonatomic) IBOutlet UILabel *speedLabel;
 
 @end

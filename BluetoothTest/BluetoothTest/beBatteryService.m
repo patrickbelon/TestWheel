@@ -173,8 +173,13 @@ NSString *beBatteryServiceEnteredForegroundNotification =
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if([characteristic.UUID isEqual:batteryLevelUUID]){
+    if([characteristic.UUID isEqual:currentBatteryLevelUUID]){
         [peripheralDelegate batteryServiceDidChangeBatteryLevel:self];
+        NSData *data = characteristic.value;
+        
+        uint16_t battery = CFSwapInt32BigToHost(*(UInt16*)([data bytes]));
+        
+        batteryPercentage = battery;
     }
     else if([characteristic.UUID isEqual:userCompensationUUID])
     {

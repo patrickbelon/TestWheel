@@ -42,7 +42,7 @@ extern NSString *beBikeEnableCharacteristicUUIDString;//fb54f9c3-0d8a-43df-8bca-
 
 @interface beBatteryService : NSObject
 
-@property (readonly) float batteryPercentage;
+@property (readonly) UInt16 batteryPercentage;
 @property (readonly) bool  wheelCalibrated; 
 
 - (id) initWithPeripheral:(CBPeripheral *)peripheral controller:(id<beBatteryServiceProtocol>)controller;
