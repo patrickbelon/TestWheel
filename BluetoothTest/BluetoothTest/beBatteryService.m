@@ -177,7 +177,8 @@ NSString *beBatteryServiceEnteredForegroundNotification =
         [peripheralDelegate batteryServiceDidChangeBatteryLevel:self];
         NSData *data = characteristic.value;
         
-        uint16_t battery = CFSwapInt32BigToHost(*(UInt16*)([data bytes]));
+        //uint16_t battery = CFSwapInt32BigToHost(*(UInt16*)([data bytes]));
+        uint16_t battery = CFSwapInt16LittleToHost(*(uint16_t*)([data bytes]));
         
         batteryPercentage = battery;
     }
