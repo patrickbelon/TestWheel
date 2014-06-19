@@ -38,6 +38,10 @@
 #pragma mark --
 #pragma mark beDiscoveryDelegate methods
 
+-(void)searchingTimedout{
+    
+}
+
 -(void)discoveryStatePoweredOff{
     
 }
@@ -65,6 +69,7 @@
         case beDiscoveryStateDisconnected:
             NSLog(@"discoveryUpdatedState: Disconnected");
             isWheelConnected = false;
+            connectButton.enabled = true;
             [connectButton setTitle:@"Connect" forState:UIControlStateNormal];
             break;
             
@@ -118,8 +123,15 @@
 
 - (IBAction)calibrateButtonPressed:(id)sender {
     NSMutableArray *arr = [[beDiscover sharedInstance]connectedServices];
-    beBatteryService *ser = [arr objectAtIndex:0];
+    if(arr.count >0){
+        beBatteryService *ser = [arr objectAtIndex:0];
+        [ser compensateWheel];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Your electron wheel needs to be connected before you calibrate." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        [alert show];
+    }
     
-    [ser compensateWheel];
-}
+    }
 @end

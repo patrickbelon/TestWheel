@@ -192,6 +192,10 @@ NSString *beBatteryServiceEnteredForegroundNotification =
     if(error != nil)
     {
         NSLog(@"error: %@",error.description);
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Calibration Error" message:@"There was an error calibrating your wheel." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        [alert show];
     }
     else
     {

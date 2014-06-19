@@ -24,6 +24,7 @@
 @synthesize systemControlDelegate;
 @synthesize connectedWheel;
 @synthesize state;
+@synthesize timer;
 
 #pragma mark -
 #pragma mark Init
@@ -67,6 +68,7 @@
 	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
     [self updateState:beDiscoveryStateSearching];
 	[centralManager scanForPeripheralsWithServices:uuidArray options:options];
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(connectionTimeoutOccured:) userInfo:nil repeats:NO];
 }
 
 
@@ -100,6 +102,20 @@
 	}
 }
 
+- (void) connectionTimeoutOccured:timer{
+    [centralManager stopScan];
+    [timer invalidate];
+    
+    if(self.state != beDiscoveryStateConnected){
+    
+    [self updateState:beDiscoveryStateDisconnected];
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Could not find an electron wheel. Make sure that it is powered on and next to you." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    [alert show];
+    }
+}
+
 
 - (void) disconnectPeripheral
 {
@@ -113,6 +129,7 @@
 	beBatteryService	*service	= nil;
     beSystemControlService *controlService = nil;
     connectedWheel = peripheral;
+    
 	
 	/* Create a service instance. */
 	service = [[beBatteryService alloc] initWithPeripheral:peripheral controller:peripheralDelegate];
@@ -145,6 +162,11 @@
 - (void) centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
 	beBatteryService	*service	= nil;
+    
+    if(timer != nil)
+    {
+        [timer invalidate];
+    }
     
     [self updateState:beDiscoveryStateDisconnected];
     

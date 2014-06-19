@@ -11,6 +11,7 @@
 #import "beBatteryService.h"
 #import "beSystemControlService.h"
 
+
 /****************************************************************************/
 /*                             State                                        */
 /***************************************************************************/
@@ -29,7 +30,8 @@ typedef enum
 - (void) discoveryDidRefresh;
 - (void) discoveryStatePoweredOff;
 - (void) peripheralChangedState:(CBPeripheralState) state;
-- (void) discoveryDidUpdateState: (beDiscoveryState)state; 
+- (void) discoveryDidUpdateState: (beDiscoveryState)state;
+- (void) searchingTimedout;
 @end
 
 /****************************************************************************/
@@ -54,6 +56,7 @@ typedef enum
 - (void) stopScanning;
 - (void) connectPeripheral:(CBPeripheral*)peripheral;
 - (void) disconnectPeripheral;
+- (void) connectionTimeoutOccured:(NSTimer*)timer;
 
 /****************************************************************************/
 /*							Access to the devices							*/
@@ -67,6 +70,11 @@ typedef enum
 /*                              Access to state                             */
 /****************************************************************************/
 @property (readonly) beDiscoveryState state;
+
+/****************************************************************************/
+/*                             Timer                                        */
+/***************************************************************************/
+@property (weak, nonatomic) NSTimer *timer;
 
 @end
 

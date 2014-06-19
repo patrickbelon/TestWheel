@@ -45,7 +45,7 @@
 }
 
 - (IBAction)buttonClicked:(id)sender {
-        [[beDiscover sharedInstance]startScanningForUUIDString:beBatteryServiceUUIDString];
+        [[beDiscover sharedInstance]startScanningForUUIDString:beSystemControlServiceUUIDString];
         _textView.text = [_textView.text stringByAppendingString:@"\n"];
         _textView.text = [_textView.text stringByAppendingString:@"Searching"];
 }
@@ -58,8 +58,6 @@
     
     //Need to improve cached events
     
-    CLLocation *location = [locations lastObject];
-    MKCoordinateRegion r = MKCoordinateRegionMakeWithDistance(location.coordinate, 15.0, 15.0);
     
 }
 
