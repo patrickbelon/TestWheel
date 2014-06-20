@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E4008081953E1F700D5A100 /* beFirstViewControllerNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4008071953E1F700D5A100 /* beFirstViewControllerNavViewController.m */; };
 		1E40080B1953E21B00D5A100 /* beSeconViewControllerNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E40080A1953E21B00D5A100 /* beSeconViewControllerNavViewController.m */; };
+		1E40080F195400AD00D5A100 /* beTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E40080E195400AD00D5A100 /* beTabBarViewController.m */; };
 		1EC8F28F194B755A00027DFB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC8F28E194B755A00027DFB /* MapKit.framework */; };
 		1ED8158E1942C7B4009FF65B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED8158D1942C7B4009FF65B /* Foundation.framework */; };
 		1ED815901942C7B4009FF65B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED8158F1942C7B4009FF65B /* CoreGraphics.framework */; };
@@ -45,6 +46,9 @@
 		1E4008071953E1F700D5A100 /* beFirstViewControllerNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beFirstViewControllerNavViewController.m; sourceTree = "<group>"; };
 		1E4008091953E21B00D5A100 /* beSeconViewControllerNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beSeconViewControllerNavViewController.h; sourceTree = "<group>"; };
 		1E40080A1953E21B00D5A100 /* beSeconViewControllerNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beSeconViewControllerNavViewController.m; sourceTree = "<group>"; };
+		1E40080C1953F7F600D5A100 /* launchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchImage@2x.png"; sourceTree = "<group>"; };
+		1E40080D195400AD00D5A100 /* beTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beTabBarViewController.h; sourceTree = "<group>"; };
+		1E40080E195400AD00D5A100 /* beTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beTabBarViewController.m; sourceTree = "<group>"; };
 		1EC8F28E194B755A00027DFB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1ED8158A1942C7B4009FF65B /* BluetoothTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED8158D1942C7B4009FF65B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -103,6 +107,7 @@
 		1ED815811942C7B4009FF65B = {
 			isa = PBXGroup;
 			children = (
+				1E40080C1953F7F600D5A100 /* launchImage@2x.png */,
 				1ED815931942C7B4009FF65B /* BluetoothTest */,
 				1ED815B51942C7B4009FF65B /* BluetoothTestTests */,
 				1ED8158C1942C7B4009FF65B /* Frameworks */,
@@ -135,6 +140,8 @@
 		1ED815931942C7B4009FF65B /* BluetoothTest */ = {
 			isa = PBXGroup;
 			children = (
+				1E40080D195400AD00D5A100 /* beTabBarViewController.h */,
+				1E40080E195400AD00D5A100 /* beTabBarViewController.m */,
 				1E4008091953E21B00D5A100 /* beSeconViewControllerNavViewController.h */,
 				1E40080A1953E21B00D5A100 /* beSeconViewControllerNavViewController.m */,
 				1E4008061953E1F700D5A100 /* beFirstViewControllerNavViewController.h */,
@@ -294,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E40080F195400AD00D5A100 /* beTabBarViewController.m in Sources */,
 				1ED8159A1942C7B4009FF65B /* main.m in Sources */,
 				1ED815A71942C7B4009FF65B /* beSecondViewController.m in Sources */,
 				1ED815CE1942DDFC009FF65B /* beBatteryService.m in Sources */,

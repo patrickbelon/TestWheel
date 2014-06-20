@@ -61,6 +61,10 @@
     MKCoordinateRegion r = MKCoordinateRegionMakeWithDistance(location.coordinate, 15.0, 15.0);
     [mapView setRegion:r];
     
+    double speed = location.speed;
+    
+    NSString *speedString = [NSString stringWithFormat:@"%f: m/s",speed];
+    _speedLabel.text = speedString;
 }
 
 
