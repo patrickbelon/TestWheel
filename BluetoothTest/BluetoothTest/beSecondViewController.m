@@ -10,7 +10,7 @@
 #import "beSecondViewController.h"
 #import "beSystemControlService.h"
 
-@interface beSecondViewController ()<beDiscoverDelegate,beSystemControlServiceProtocol>{
+@interface beSecondViewController ()<beDiscoverDelegate,beSystemControlServiceProtocol,UIAlertViewDelegate>{
 @private
     
     bool isWheelConnected;
@@ -26,6 +26,7 @@
     [super viewDidLoad];
 	[[beDiscover sharedInstance]setDiscoveryDelegate:self];
     [[beDiscover sharedInstance]setSystemControlDelegate:self];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,6 +97,27 @@
     }
 }
 
+#pragma mark - 
+#pragma mark UIActionSheet Delegate Methods
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==0){
+        NSMutableArray *arr = [[beDiscover sharedInstance]connectedServices];
+        
+        beBatteryService *ser = [arr objectAtIndex:0];
+        [ser compensateWheel];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+        NSMutableArray *arr = [[beDiscover sharedInstance]connectedServices];
+        
+        beBatteryService *ser = [arr objectAtIndex:0];
+        [ser compensateWheel];
+    }
+}
+
 #pragma mark -
 #pragma mark beSystemControlService Delegate Methods
 /****************************************************************************/
@@ -124,8 +146,13 @@
 - (IBAction)calibrateButtonPressed:(id)sender {
     NSMutableArray *arr = [[beDiscover sharedInstance]connectedServices];
     if(arr.count >0){
-        beBatteryService *ser = [arr objectAtIndex:0];
-        [ser compensateWheel];
+//        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"Are you sure you want to calibrate your ewheel? Make sure that it is mounted on a bike, and that the bike is level on a level surface." delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:@"Yes" otherButtonTitles:nil];
+//        
+//        [sheet showInView:self.view];
+        
+        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Calibration" message:@"Are you sure that you want to calibrate your Electron Wheel?\n Make sure that it is properly mounted and that your bike is on a flat and level surface." delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+        
+        [alert show];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Your electron wheel needs to be connected before you calibrate." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

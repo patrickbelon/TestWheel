@@ -57,7 +57,9 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     
     //Need to improve cached events
-    
+    CLLocation *location = locationManager.location;
+    MKCoordinateRegion r = MKCoordinateRegionMakeWithDistance(location.coordinate, 15.0, 15.0);
+    [mapView setRegion:r];
     
 }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E4008081953E1F700D5A100 /* beFirstViewControllerNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4008071953E1F700D5A100 /* beFirstViewControllerNavViewController.m */; };
+		1E40080B1953E21B00D5A100 /* beSeconViewControllerNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E40080A1953E21B00D5A100 /* beSeconViewControllerNavViewController.m */; };
 		1EC8F28F194B755A00027DFB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC8F28E194B755A00027DFB /* MapKit.framework */; };
 		1ED8158E1942C7B4009FF65B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED8158D1942C7B4009FF65B /* Foundation.framework */; };
 		1ED815901942C7B4009FF65B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED8158F1942C7B4009FF65B /* CoreGraphics.framework */; };
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E4008061953E1F700D5A100 /* beFirstViewControllerNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beFirstViewControllerNavViewController.h; sourceTree = "<group>"; };
+		1E4008071953E1F700D5A100 /* beFirstViewControllerNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beFirstViewControllerNavViewController.m; sourceTree = "<group>"; };
+		1E4008091953E21B00D5A100 /* beSeconViewControllerNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beSeconViewControllerNavViewController.h; sourceTree = "<group>"; };
+		1E40080A1953E21B00D5A100 /* beSeconViewControllerNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beSeconViewControllerNavViewController.m; sourceTree = "<group>"; };
 		1EC8F28E194B755A00027DFB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1ED8158A1942C7B4009FF65B /* BluetoothTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED8158D1942C7B4009FF65B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -129,6 +135,10 @@
 		1ED815931942C7B4009FF65B /* BluetoothTest */ = {
 			isa = PBXGroup;
 			children = (
+				1E4008091953E21B00D5A100 /* beSeconViewControllerNavViewController.h */,
+				1E40080A1953E21B00D5A100 /* beSeconViewControllerNavViewController.m */,
+				1E4008061953E1F700D5A100 /* beFirstViewControllerNavViewController.h */,
+				1E4008071953E1F700D5A100 /* beFirstViewControllerNavViewController.m */,
 				1ED815C51942C83A009FF65B /* Bluetooth Driver */,
 				1ED8159C1942C7B4009FF65B /* beAppDelegate.h */,
 				1ED8159D1942C7B4009FF65B /* beAppDelegate.m */,
@@ -231,6 +241,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = BioCom;
 				TargetAttributes = {
+					1ED815891942C7B4009FF65B = {
+						DevelopmentTeam = 668B336YSC;
+					};
 					1ED815AD1942C7B4009FF65B = {
 						TestTargetID = 1ED815891942C7B4009FF65B;
 					};
@@ -284,7 +297,9 @@
 				1ED8159A1942C7B4009FF65B /* main.m in Sources */,
 				1ED815A71942C7B4009FF65B /* beSecondViewController.m in Sources */,
 				1ED815CE1942DDFC009FF65B /* beBatteryService.m in Sources */,
+				1E4008081953E1F700D5A100 /* beFirstViewControllerNavViewController.m in Sources */,
 				1ED8159E1942C7B4009FF65B /* beAppDelegate.m in Sources */,
+				1E40080B1953E21B00D5A100 /* beSeconViewControllerNavViewController.m in Sources */,
 				1ED815A41942C7B4009FF65B /* beFirstViewController.m in Sources */,
 				1ED815D31942EBA8009FF65B /* beDiscover.m in Sources */,
 			);
@@ -411,10 +426,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Patrick Belon (W786KH2DKA)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BluetoothTest/BluetoothTest-Prefix.pch";
 				INFOPLIST_FILE = "BluetoothTest/BluetoothTest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8B509BA0-23E0-4D97-971E-198498892D03";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -424,10 +442,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BluetoothTest/BluetoothTest-Prefix.pch";
 				INFOPLIST_FILE = "BluetoothTest/BluetoothTest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8B509BA0-23E0-4D97-971E-198498892D03";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
